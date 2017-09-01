@@ -33,10 +33,8 @@ class MailFilterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $config = config('maileable');
-
-        $this->app->bind(Filter::class, function() {
-            return new Filter($config);
+        $this->app->bind(Filter::class, function($app) {
+            return new Filter(config('maileable'));
         });
     }
 
