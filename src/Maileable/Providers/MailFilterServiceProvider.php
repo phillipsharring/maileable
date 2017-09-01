@@ -3,6 +3,7 @@
 namespace Maileable\Providers;
 
 use Maileable\Mail\Filters\Filter;
+use Maileable\Console\Commands\MakeMailFilter;
 use Illuminate\Support\ServiceProvider;
 
 class MailFilterServiceProvider extends ServiceProvider
@@ -21,6 +22,12 @@ class MailFilterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MailFilterMakeCommand::class,
+            ]);
+        }
+
         $this->publishes([
             __DIR__ . '/../../config/maileable.php' => config_path('maileable.php')
         ], 'config');

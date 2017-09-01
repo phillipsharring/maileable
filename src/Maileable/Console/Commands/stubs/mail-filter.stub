@@ -1,0 +1,32 @@
+<?php
+
+namespace DummyNamespace;
+
+use Maileable\Mail\Filters\FilterAbstract;
+use \Swift_Message;
+use Illuminate\Mail\Mailable;
+
+class DummyClass extends FilterAbstract
+{
+    public $modifies = 'swift';
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct()
+    {
+        // inject things here if you like or you can delete this
+    }
+
+    /**
+     * Filter
+     *
+     * @param Swift_Message|Mailable $message
+     *
+     * @return void
+     */
+    public function filter($message)
+    {
+        //TODO: filter here
+    }
+}
