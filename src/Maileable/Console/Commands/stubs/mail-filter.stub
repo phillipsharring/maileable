@@ -6,16 +6,22 @@ use Maileable\Mail\Filters\FilterAbstract;
 use \Swift_Message;
 use Illuminate\Mail\Mailable;
 
+/**
+ * Mail Filter
+ */
 class DummyClass extends FilterAbstract
 {
+    /** @var string $modifies Can be swift (default) or mailable */
     public $modifies = 'swift';
 
     /**
      * Create a new message instance.
+     * inject things here if you like or you can delete this
+     *
+     * @return void
      */
     public function __construct()
     {
-        // inject things here if you like or you can delete this
     }
 
     /**

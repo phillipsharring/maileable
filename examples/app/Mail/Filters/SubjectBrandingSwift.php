@@ -7,10 +7,10 @@ namespace App\Mail\Filters;
 use Maileable\Mail\Filters\FilterAbstract;
 
 // this filter modifies the swift message
-// change this to Illuminate\Mail\Mailable, make $modifies = 'mailable', and also update the $message parameter type hint for filter() 
+// change this to Illuminate\Mail\Mailable, make $modifies = 'mailable', and also update the $message parameter type hint for filter()
 use \Swift_Message;
 
-class CleanUpFromAddress extends FilterAbstract
+class SubjectBrandingSwift extends FilterAbstract
 {
     // this filter modifies the swift message, which is the FilterAbstract::modifies default
     // change this to 'mailable' and make the $message parameter type hint for filter() Illuminate\Mail\Mailable
@@ -21,16 +21,13 @@ class CleanUpFromAddress extends FilterAbstract
      */
     public function filter($message)
     {
-        $froms = $message->getFrom();
+    	$message->getSubject()
+    	$branding = '[My Company]';
 
-        foreach ($froms as $email => &$name) {
-            if ('contact@mycompany.com' != $email || !empty($name)) {
-                continue;
-            }
+    	if (false !== strstr($subject, $branding)) {
+    		return;
+    	}
 
-            $name = 'My Company';
-        }
-
-        $message->setFrom($froms);
+        $message->setSubject($branding . ' ' . $subject);
     }
 }

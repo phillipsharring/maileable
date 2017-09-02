@@ -7,10 +7,10 @@ namespace App\Mail\Filters;
 use Maileable\Mail\Filters\FilterAbstract;
 
 // this filter modifies the swift message
-// change this to Illuminate\Mail\Mailable, make $modifies = 'mailable', and also update the $message parameter type hint for filter() 
+// change this to Illuminate\Mail\Mailable, make $modifies = 'mailable', and also update the $message parameter type hint for filter()
 use \Swift_Message;
 
-class WasSentTo extends FilterAbstract
+class CleanUpFromAddressSwift extends FilterAbstract
 {
     // this filter modifies the swift message, which is the FilterAbstract::modifies default
     // change this to 'mailable' and make the $message parameter type hint for filter() Illuminate\Mail\Mailable
@@ -21,9 +21,16 @@ class WasSentTo extends FilterAbstract
      */
     public function filter($message)
     {
-        // copy this view to your app if you want to use this filter
-        // we don't publish it because it's just an example
-        $disclaimer = view('mail.was-sent-to', ['tos' => collect($message->getTo())])->render();
-        $message->setBody(str_replace('</body>', $disclaimer . '</body>', $message->getBody()));
+        $froms = $message->getFrom();
+
+        foreach ($froms as $email => &$name) {
+            if ('contact@mycompany.com' != $email || !empty($name)) {
+                continue;
+            }
+
+            $name = 'My Company';
+        }
+
+        $message->setFrom($froms);
     }
 }
