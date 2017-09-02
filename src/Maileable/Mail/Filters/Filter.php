@@ -20,7 +20,7 @@ class Filter
             }
 
             foreach ($filters as $class) {
-                $filter = new $class;
+                $filter = app()->make($class);
 
                 if ('mailable' == $filter->modifies) {
                     // do stuff with the mailable now
