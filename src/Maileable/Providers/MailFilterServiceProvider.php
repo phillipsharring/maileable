@@ -3,7 +3,7 @@
 namespace Maileable\Providers;
 
 use Maileable\Mail\Filters\Filter;
-use Maileable\Console\Commands\MakeMailFilter;
+use Maileable\Console\Commands\MailFilterMakeCommand;
 use Illuminate\Support\ServiceProvider;
 
 class MailFilterServiceProvider extends ServiceProvider
