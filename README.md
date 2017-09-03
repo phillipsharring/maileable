@@ -12,7 +12,7 @@ The name "Maileable" is a play on on the word "malleable," which, in English, am
 
 The examples directory has a couple of few cases, such as making sure the from address has a name and is tidy, prepending branding to the mail subject, or adding or modifying content in the mail body. This last one is better handled with Blade templates, but the concept is demonstrated here. You can modify the email headers. Logging. There's probably more ideas, I'm sure.
 
-Why not just use the 
+Why not just use the event? Flesh this out...
 
 ## How
 
