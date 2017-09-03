@@ -42,7 +42,7 @@ Set your `minimum-stability` to `dev`.
 Install with the composer require command.
 
 ```bash
-$ composer require philsown/mailable`
+$ composer require philsown/mailable
 ```
 
 Add the service provider to your `config/app.php` provider's array.
@@ -71,11 +71,19 @@ return [
 ];
 ```
 
+Publish the vendor config.
+
+```bash
+$ php artisan vendor:publish --provider=Maileable\Providers\MailFilterServiceProvider --tag=config
+```
+
+This will create `config/maileable.php`. Edit this file to wire filters to your Mailables. This is explained below.
+
 ### Use
 
 The short version steps:
 
-1. Update the Mailable `use` statement to use Maileable's class. :(
+1. Update the Mailable `use` statement to use Maileable's class, sorry :(
 1. Make a mail filter using the `make:mailfilter` generator.
 1. Flesh out the filter method.
 1. Wire the filter in your 
@@ -107,7 +115,7 @@ class YourEmail extends Mailable
 There is a generator for this using this artisan command:
 
 ```bash
-$ php artisan make:mailfilter YourFilterName`
+$ php artisan make:mailfilter YourFilterName
 ```
 
 This command has no other arguments besides name. This will create a mail filter from a stub in the `app\Mail\Filters` directory, and create that directory if it doesn't already exist.
