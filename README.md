@@ -6,17 +6,19 @@
 
 Maileable is a library for adding filters to Laravel Mailable messages that can you modify Mailable or Swift_Message objects before they are sent. Think of it as response middleware for email.
 
-The name "Maileable" is a play on on the word "malleable," which, in English, among other things, means "easily influenced; pliable." The goal of this library is to make changing messages before they are sent easy.
+The name "Maileable" is a play on on the word "malleable," which, in English, among other things, means "easily influenced; pliable." The goal of this library is to make it easy to change messages before they are sent.
 
 ## Why
 
-The examples have a couple of use cases, such as making sure the from address has a name and is tidy, prepending branding to the mail subject, or adding or modifying content in the mail body. This last one is better handled with Blade templates, but the concept is demonstrated here. You can modify the email headers. There's lots of ideas, I'm sure.
+The examples directory has a couple of few cases, such as making sure the from address has a name and is tidy, prepending branding to the mail subject, or adding or modifying content in the mail body. This last one is better handled with Blade templates, but the concept is demonstrated here. You can modify the email headers. Logging. There's probably more ideas, I'm sure.
+
+Why not just use the 
 
 ## How
 
 ### Installation
 
-Install with composer.
+Install with [Composer](https://getcomposer.org/).
 
 Add the repository to your `composer.json` file.
 
@@ -39,7 +41,7 @@ Set your `minimum-stability` to `dev`.
 }
 ```
 
-Install with the composer require command.
+Install with the require command.
 
 ```bash
 $ composer require philsown/mailable
@@ -94,13 +96,14 @@ The less short version:
 
 ```php
 <?php
-
 # app/Mail/YourEmail.php
+
 namespace App\Mail;
 
 // Change this line in your Mailable class
 use Maileable\Mail\Mailable;
 
+// everything else is the same
 class YourEmail extends Mailable
 {
     public function build()
@@ -190,6 +193,10 @@ return [
     ],
 ];
 ```
+
+## Support and Issues
+
+There's probably tons of problems with this and I've never used it on a Queued message, so... YMMV. But hey, give it a whirl and let me know how it goes or if you need help with anything!
 
 ## Contributing
 
