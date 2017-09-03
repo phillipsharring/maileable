@@ -120,7 +120,17 @@ $ php artisan make:mailfilter YourFilterName
 
 This command has no other arguments besides name. This will create a mail filter from a stub in the `app\Mail\Filters` directory, and create that directory if it doesn't already exist.
 
-#### Step 3: Flesh out the filter method.
+#### Step 3: Update your Filter class
+
+Choose if you want to filter the `\Swift_Message` class or `Illuminate\Mail\Mailable` class.
+
+If you would like to filter the `\Swift_Message` class, set `$modifies` to 'swift' (or take it out and let it default from the `FilterAbstract`). This is the default and let's you easily tinker with the nuts and bolts of the email message. This filtering happens when the mailer calls `Mailable::runCallbacks`, basically at the very last possible point.
+
+If you want to filter `Illuminate\Mail\Mailable`, set `$modifies` to `'mailable'`. This is useful if you want to use any information contained in the Mailable class, like grabbing the mailable class name or the view. This filtering happens when the when the `Mailable::send` method is called. It's a slightly different method, but I think it's nice to have a choice.
+
+Use the `@param` phpdoc to let your IDE know what the message variable is. 
+
+to flesh out the filter method.
 
 ```php
 <?php
