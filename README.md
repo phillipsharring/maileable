@@ -160,7 +160,7 @@ class CleanUpFromAddress extends FilterAbstract
 
 #### Step. 4 Wire the filter in your published vendor config
 
-Wire the filters to various Mailable classes in the `config/maileable.php' config file. This works by using patterns to select classes, then assigning one or more filters to Mailables that match the pattern.
+Wire the filters to various Mailable classes in the `config/maileable.php` config file. This works by using patterns to select classes, then assigning one or more filters to Mailables that match the pattern.
 
 ```php
 <?php
