@@ -1,18 +1,16 @@
 # Maileable
 
-#### This code is in active development with no releases. Please do not use this library yet. This is mainly on github so Paul can read it.
+#### This code is in active development with no releases. Please do not use this library yet. This is mainly on github so Paul can read it. Hi Paul!
 
 ## About Maileable
 
-Maileable is a library for adding filters to Laravel Mailable messages that can you modify Mailable or Swift_Message objects before they are sent.
+Maileable is a library for adding filters to Laravel Mailable messages that can you modify Mailable or Swift_Message objects before they are sent. Think of it as response middleware for email.
 
-The name "Maileable" is a play on "malleable," which, among other things, means "easily influenced; pliable." The goal of this library is to make changing messages before they are sent easy.
-
-Think of it as response middleware for email.
+The name "Maileable" is a play on on the word "malleable," which, in English, among other things, means "easily influenced; pliable." The goal of this library is to make changing messages before they are sent easy.
 
 ## Why
 
-The examples have a couple of use cases, such as making sure the from address has a name and is tidy, prepending branding to the mail subject, or adding or modifying content in the mail body. This last one is better handled with Blade templates, but there it is.
+The examples have a couple of use cases, such as making sure the from address has a name and is tidy, prepending branding to the mail subject, or adding or modifying content in the mail body. This last one is better handled with Blade templates, but the concept is demonstrated here. You can modify the email headers. There's lots of ideas, I'm sure.
 
 ## How
 
@@ -41,10 +39,36 @@ Set your `minimum-stability` to `dev`.
 }
 ```
 
-Then use the composer require command.
+Install with the composer require command.
 
 ```bash
 $ composer require philsown/mailable`
+```
+
+Add the service provider to your `config/app.php` provider's array.
+
+```php
+<?php
+
+return [
+    // ...
+    'providers' => [
+        // ...
+
+        /*
+         * Application Service Providers...
+         */
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+
+        // add Maileable anywhere in here, really
+        Maileable\Providers\MailFilterServiceProvider::class,
+    ],
+    // ...
+];
 ```
 
 ### Use
@@ -54,6 +78,7 @@ The short version steps:
 1. Update the Mailable `use` statement to use Maileable's class. :(
 1. Make a mail filter using the `make:mailfilter` generator.
 1. Flesh out the filter method.
+1. Wire the filter in your 
 
 The less short version:
 
