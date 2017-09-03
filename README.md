@@ -86,7 +86,7 @@ The short version steps:
 1. Update the Mailable `use` statement to use Maileable's class, sorry :(
 1. Make a mail filter using the `make:mailfilter` generator.
 1. Flesh out the filter method.
-1. Wire the filter in your 
+1. Wire the filter in your published vendor config
 
 The less short version:
 
@@ -156,6 +156,29 @@ class CleanUpFromAddress extends FilterAbstract
         $message->from = $froms;
     }
 }
+```
+
+#### Step. 4 Wire the filter in your published vendor config
+
+This is where you wire the filters to various Mailable classes. This works by using patterns to select classes, then assigning one or more filters to Mailables that match the pattern.
+
+```php
+<?php
+
+return [
+    'filters' => [
+        'App\Mail\*' => [
+            \App\Mail\Filters\ThinkBeforeYouPrint::class,
+            \App\Mail\Filters\AddSubjectBranding::class,
+        ],
+        'App\Mail\Orders\*' => [
+            \App\Mail\Filters\ShippingDisclaimer::class,
+        ],
+        'App\Mail\Newsletter\*' => [
+            \App\Mail\Filters\AddUnsubscribeHeaders::class,
+        ],
+    ],
+];
 ```
 
 ## Contributing
