@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Maileable\Tests\Unit;
 
-use Tests\TestCase;
+use Maileable\Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
