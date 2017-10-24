@@ -35,6 +35,13 @@ class Filter
     protected $config = ['filters' => ''];
 
     /**
+     * An array of filters we instantiate
+     *
+     * @var array $filters
+     */
+    protected $filters = [];
+
+    /**
      * Filter constructor
      *
      * @param array $config A config array
@@ -55,7 +62,20 @@ class Filter
      */
     public function filter($mailable)
     {
-        foreach ($this->config['filters'] as $pattern => $filters) {
+        $this->checkForFilters($mailable, $this->config['filters']);
+    }
+
+    /**
+     * This checks for filters
+     *
+     * @param object $mailable The mailable instance
+     * @param array  $filters  An array of configured filter patterns & filters
+     *
+     * @return void
+     */
+    protected function checkForFilters($mailable, $filters)
+    {
+        foreach ($filters as $pattern => $filters) {
             if (!preg_match(
                 '#' . str_replace('\\', '\\\\', $pattern) . '#',
                 get_class($mailable)
@@ -64,17 +84,30 @@ class Filter
                 continue;
             }
 
-            foreach ($filters as $class) {
-                $filter = app()->make($class);
+            $this->applyFilters($mailable, $filters);
+        }
+    }
 
-                if ('mailable' == $filter->modifies) {
-                    // do stuff with the mailable now
-                    $filter->filter($mailable);
-                } elseif ('swift' == $filter->modifies) {
-                    // do stuff with the raw swift message at send time,
-                    // using Mailable::runCallbacks
-                    $mailable->callbacks[] = [$filter, 'filter'];
-                }
+    /**
+     * This applies any filters that were found
+     *
+     * @param object $mailable The mailable instance
+     * @param array  $filters  An array of filters to apply
+     *
+     * @return void
+     */
+    protected function applyFilters($mailable, $filters)
+    {
+        foreach ($filters as $class) {
+            $filter = app()->make($class);
+
+            if ('mailable' == $filter->modifies) {
+                // do stuff with the mailable now
+                $filter->filter($mailable);
+            } elseif ('swift' == $filter->modifies) {
+                // do stuff with the raw swift message at send time,
+                // using Mailable::runCallbacks
+                $mailable->callbacks[] = [$filter, 'filter'];
             }
         }
     }

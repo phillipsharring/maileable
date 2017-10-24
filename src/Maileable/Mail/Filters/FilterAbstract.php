@@ -47,7 +47,7 @@ abstract class FilterAbstract
      *
      * @return void
      */
-    function filter($message)
+    public function filter($message)
     {
         $message;
     }
