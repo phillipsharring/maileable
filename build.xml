@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="YourProject" default="build" basedir=".">
+<project name="Maileable" default="build" basedir=".">
     <property name="build-dir" value="${basedir}/build" />
     <property name="src-dir" value="${basedir}/src" />
 
