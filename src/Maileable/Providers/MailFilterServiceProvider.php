@@ -61,7 +61,7 @@ class MailFilterServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             Filter::class,
-            function ($app) {
+            function () {
                 return new Filter(config('maileable'));
             }
         );

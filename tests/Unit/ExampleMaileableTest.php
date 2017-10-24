@@ -2,9 +2,9 @@
 
 namespace Maileable\Tests\Unit;
 
-use Maileable\Tests\TestCase;
+use Maileable\Tests\MaileableTestCase;
 
-class ExampleTest extends TestCase
+class ExampleMaileableTest extends MaileableTestCase
 {
     /**
      * A basic test example.

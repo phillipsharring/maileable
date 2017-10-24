@@ -49,5 +49,6 @@ abstract class FilterAbstract
      */
     function filter($message)
     {
+        $message;
     }
 }
